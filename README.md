@@ -6,6 +6,14 @@ This server handles authentication requests from both the game client (via the F
 
 > **Warning**: This is an experimental project for educational purposes. Use at your own risk.
 
+## Public Test Server
+
+**You don't need to run your own auth server!** A public test server is available at `sanasol.ws` and is used by default in all related projects.
+
+Simply use the [Hytale-F2P launcher](https://github.com/sanasol/Hytale-F2P/tree/patched-auth-server) and [hytale-server-docker](https://github.com/sanasol/hytale-server-docker) with default settings - they're pre-configured to use `sanasol.ws`.
+
+> **Note**: The public server is for testing purposes. For production use or privacy, set up your own server using this repository.
+
 ## Related Projects
 
 This is part of a complete Hytale F2P setup:
@@ -16,7 +24,9 @@ This is part of a complete Hytale F2P setup:
 | [Hytale-F2P](https://github.com/sanasol/Hytale-F2P/tree/patched-auth-server) | Game launcher with domain patching |
 | [hytale-server-docker](https://github.com/sanasol/hytale-server-docker) | Dedicated server Docker image |
 
-## Requirements
+## Requirements (for running your own server)
+
+> **Skip this section** if you're using the public `sanasol.ws` test server.
 
 - Docker and Docker Compose
 - A domain with exactly **10 characters** (same length as `hytale.com`)
@@ -24,7 +34,7 @@ This is part of a complete Hytale F2P setup:
 - DNS records pointing to your server
 - (Optional) `Assets.zip` from the game for cosmetics
 
-## Quick Start
+## Quick Start (Own Server)
 
 ### 1. Clone the repository
 

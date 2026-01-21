@@ -110,6 +110,10 @@ function saveUserData(data) {
 // In-memory cache, loaded from file on startup
 let userData = loadUserData();
 
+// Cache for UUID -> username mapping (to persist usernames across requests)
+// This ensures we always use the correct player name even when server tokens are involved
+const uuidUsernameCache = new Map();
+
 // Load cosmetics from Assets.zip
 function loadCosmeticsFromAssets() {
   if (cachedCosmetics) {
@@ -475,10 +479,18 @@ function handleRequest(req, res) {
 function routeRequest(req, res, url, body, headers) {
   const urlPath = url.pathname;
 
-  // Extract UUID from Authorization header if present
+  // Extract UUID and name from body first
   let uuid = body.uuid || crypto.randomUUID();
-  let name = body.name || 'Player';
+  let name = body.name || null;
+  let tokenScope = null;
 
+  // If we have a valid name from body (not 'Player'), cache it immediately
+  if (uuid && name && name !== 'Player') {
+    uuidUsernameCache.set(uuid, name);
+    console.log(`Cached username from body for UUID ${uuid}: ${name}`);
+  }
+
+  // Extract UUID and name from Authorization header
   if (headers && headers.authorization) {
     try {
       const token = headers.authorization.replace('Bearer ', '');
@@ -486,10 +498,35 @@ function routeRequest(req, res, url, body, headers) {
       if (parts.length >= 2) {
         const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString());
         if (payload.sub) uuid = payload.sub;
-        if (payload.name) name = payload.name;
+        if (payload.scope) tokenScope = payload.scope;
+        
+        // Extract name from token
+        let tokenName = null;
+        if (payload.username) tokenName = payload.username;
+        else if (payload.name) tokenName = payload.name;
+        
+        // Cache token name if it's valid and from a player token
+        if (uuid && tokenName && tokenName !== 'Player' && tokenScope && 
+            (tokenScope.includes('hytale:client') || tokenScope.includes('hytale:editor'))) {
+          uuidUsernameCache.set(uuid, tokenName);
+          console.log(`Cached username from token for UUID ${uuid}: ${tokenName}`);
+          name = tokenName;
+        }
       }
     } catch (e) {}
   }
+  
+  // If we don't have a valid name yet, try the cache
+  if (!name || name === 'Player') {
+    const cachedName = uuidUsernameCache.get(uuid);
+    if (cachedName) {
+      name = cachedName;
+      console.log(`Using cached username for UUID ${uuid}: ${name}`);
+    }
+  }
+  
+  // Final fallback
+  if (!name) name = 'Player';
 
   // Avatar viewer routes
   if (urlPath.startsWith('/avatar/')) {
@@ -744,6 +781,7 @@ function handleTokenExchange(req, res, body, uuid, name, headers) {
         audience = payload.aud;
         if (payload.sub) uuid = payload.sub;
         if (payload.name) name = payload.name;
+        if (payload.username) name = payload.username; // Prefer username over name
         console.log('Extracted from auth grant - aud:', audience, 'sub:', uuid, 'name:', name);
       }
     } catch (e) {

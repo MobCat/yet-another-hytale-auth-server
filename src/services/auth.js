@@ -109,6 +109,9 @@ function generateIdentityToken(uuid, name, scopes = null, entitlements = ['game.
     sub: uuid,
     name: name,
     username: name,
+    profile: {
+      username: name
+    },
     entitlements: entitlements,
     scope: scope,
     iat: now,

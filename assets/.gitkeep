@@ -1,6 +1,0 @@
-# Place Assets.zip from your Hytale game installation here
-# This enables all cosmetics in the character creator
-#
-# Location of Assets.zip:
-# - Windows: %LOCALAPPDATA%\Hytale\release\package\game\latest\Client\Assets.zip
-# - macOS: ~/Library/Application Support/Hytale/release/package/game/latest/Client/Assets.zip

@@ -34,7 +34,7 @@ Click on a service to open its technical details page.
 | sessions.hytale.com/server-join/auth-grant | None |
 | sessions.hytale.com/server-join/auth-token | None |
 | sessions.hytale.com/.well-known/jwks.json | This is just a json file so easy enough to emulate |
-| sentry.hytale.com/api/2/envelope | Yes but spoofed your data into the void, I dont want your data |
+| sentry.hytale.com/api/2/envelope | Yes even id loopbacked and other data chucked into the void |
 | telemetry.hytale.com/telemetry/client | Yes but spoofed your data into the void, I dont want your data |
 | account-data.hytale.com/my-account/game-profile | Yes |
 | account-data.hytale.com/my-account/cosmetics | Yes, but set server wide, not account based. |

@@ -21,19 +21,23 @@ This server does not support piracy, so how you obtain the game files is up to y
 Also right now all the user data is sent into an SQLite database. it just makes the dev process easier, it can be sent to a real database in the future once all the data paths have been locked down and are fully known about.
 
 # Why another auth project? whats wrong with the other one/s?
-Well outside of the persistent data issues (as in you cant have an account, it just gens new data for you on evrey boot)<br>
-This project does not modify the client in any way. (this may be still subject to change if we can't figuer out the keys issue)<br>
-But this project proxies all of the games traffic to a new location, our custom server. so from the games point of view, nothing was edited or changed, it thinks its connecting to the real hytale.com. When Infact its connecting to us.<br>
-Also please note, as I'm not HyTale staff, some of the staff tools are more or less a guess / what tools I need to admin things. idk if they have any tools on there end, or what they may look like.
+* Persistent data, you can now save and load accounts. No more random avatars on every boot.
+* No need to modify any client files in any way
+* Fully divorced the account data server from the sessions server
+* Telemetry is optional
+As account data and session data is now separate, we can all use the one cracked auth token server, but save our own data on our own servers.
+You do not need to modify the client or any other game files, we redirect with a proxy.
+If your server host chooses not to use telemetry, that data is chucked into the void. Never to be seen again.
 
 # Services List
 Click on a service to open its technical details page.
 | Service | Support |
 | --- | --- |
-| sessions.hytale.com/game-session/child | None |
-| sessions.hytale.com/server-join/auth-grant | None |
-| sessions.hytale.com/server-join/auth-token | None |
-| sessions.hytale.com/.well-known/jwks.json | This is just a json file so easy enough to emulate |
+| sessions.hytale.com/game-session/child | Redirected |
+| sessions.hytale.com/server-join/auth-grant | Redirected |
+| sessions.hytale.com/server-join/auth-token | Redirected |
+| sessions.hytale.com/.well-known/jwks.json | Redirected |
+| sessions.hytale.com/session | Hyjacked for cracked launcher |
 | sentry.hytale.com/api/2/envelope | Yes even id loopbacked and other data chucked into the void |
 | telemetry.hytale.com/telemetry/client | Yes but spoofed your data into the void, I dont want your data |
 | account-data.hytale.com/my-account/game-profile | Yes |

@@ -103,25 +103,30 @@ function generateToken(payload) {
 }
 
 // Generate identity token for the game client/server
-function generateIdentityToken(uuid, name, entitlements = ['game.base']) {
+function generateIdentityToken(uuid, name, sessionID, entitlements = ['game.base']) {
   const now = Math.floor(Date.now() / 1000);
   const exp = now + 36000; // 10 hours
 
+  //Note: You sadly cant add extra data to the token for private server use
+  //The game just filters out anything thats not needed when 
+
   return generateToken({
-    sub: uuid,
-    name: name,
-    username: name,
-    entitlements: entitlements,
-    scope: 'hytale:server hytale:client',
-    iat: now,
     exp: exp,
+    iat: now,
     iss: `https://sessions.${DOMAIN}`,
-    jti: crypto.randomUUID()
+    jti: sessionID,
+    profile: {
+      username: name,
+      entitlements: entitlements,
+      skin: '{}'
+    },
+    scope: 'hytale:client',
+    sub: uuid
   });
 }
 
 // Generate session token for the game server
-function generateSessionToken(uuid) {
+function generateSessionToken(uuid, sessionID) {
   const now = Math.floor(Date.now() / 1000);
   const exp = now + 36000; // 10 hours
 
@@ -131,7 +136,7 @@ function generateSessionToken(uuid) {
     iat: now,
     exp: exp,
     iss: `https://sessions.${DOMAIN}`,
-    jti: crypto.randomUUID()
+    jti: sessionID
   });
 }
 
@@ -174,7 +179,7 @@ function routeRequest(req, res, url, body, headers) {
 
   // Extract UUID from Authorization header if present
   let uuid = body.uuid || crypto.randomUUID();
-  let name = body.name || 'Player';
+  let name = body.name || 'HighElf';
 
   if (headers && headers.authorization) {
     try {
@@ -409,12 +414,19 @@ function handleTokenExchange(req, res, body, uuid, name, headers) {
 
 // Create new game session (used by official launcher and servers)
 function handleGameSessionNew(req, res, body, uuid, name) {
-  console.log('game-session/new:', uuid, name);
+  console.log('game-session/new - received body:', JSON.stringify(body));
 
-  // Extract UUID from body if provided
+  // Extract fields from POST body if provided
   if (body.uuid) uuid = body.uuid;
+  if (body.name) name = body.name;
+  
+  // Optional: extract additional fields if needed
+  const entitlements = body.entitlements || ['game.base'];
+  const skinData = body.skin || '{}';
 
-  const identityToken = generateIdentityToken(uuid, name);
+  console.log('game-session/new - creating session for:', uuid, name);
+
+  const identityToken = generateIdentityToken(uuid, name, entitlements);
   const sessionToken = generateSessionToken(uuid);
   const expiresAt = new Date(Date.now() + 36000 * 1000).toISOString();
 
@@ -484,16 +496,23 @@ function handleGameSessionChild(req, res, body, uuid, name) {
 }
 
 function handleSession(req, res, body, uuid, name) {
+  if (body) {
+    console.log('received body:', JSON.stringify(body));
+    uuid = body.uuid;
+    name = body.name;
+  }
+  //From logged real data, JTI is the same accross tokens in a session.
+  sessionID = crypto.randomUUID()
+  const entitlements = body.entitlements || ['game.base'];
+  const skinData = body.skin || '{}';
   sendJson(res, 200, {
     success: true,
-    session_id: crypto.randomUUID(),
-    identityToken: generateIdentityToken(uuid, name),
-    identity_token: generateIdentityToken(uuid, name),
-    sessionToken: generateSessionToken(uuid),
-    session_token: generateSessionToken(uuid),
+    session_id: sessionID,
+    identity_token: generateIdentityToken(uuid, name, sessionID, entitlements),
+    session_token: generateSessionToken(uuid, sessionID),
     expires_in: 86400,
     token_type: 'Bearer',
-    user: { uuid, name, premium: true }
+    user: { uuid, name, entitlements: entitlements }
   });
 }
 

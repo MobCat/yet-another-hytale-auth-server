@@ -24,9 +24,9 @@ Also right now all the user data is sent into an SQLite database. it just makes 
 * Persistent data, you can now save and load accounts. No more random avatars on every boot.
 * No need to modify any client files in any way
 * Fully divorced the account data server from the sessions server
-* Telemetry is optional
-As account data and session data is now separate, we can all use the one cracked auth token server, but save our own data on our own servers.
-You do not need to modify the client or any other game files, we redirect with a proxy.
+* Telemetry is optional<br><br>
+As account data and session data is now separate, we can all use the one cracked auth token server, but save our own data on our own servers.<br>
+You do not need to modify the client or any other game files, we redirect with a proxy.<br>
 If your server host chooses not to use telemetry, that data is chucked into the void. Never to be seen again.
 
 # Services List

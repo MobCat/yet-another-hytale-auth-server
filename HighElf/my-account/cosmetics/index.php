@@ -11,6 +11,8 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $clientVer = valadateClient($pdo);
 [$sessionID, $UserInfo] = valadateRequestHeadders($pdo);
 
+//PLEASE NOTE: The way client ver is formatted, it may end up being os specific, based on the build hash / id?
+//when it probs shouldn't be. if I find a good way to run the mac or linux vers of hytale we can test this more.
 
 //Load waights for this game clinet
 //WARNING: we are expecting valadateClient to do corect string excapes for this

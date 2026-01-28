@@ -1,7 +1,6 @@
-#!/env/Python3.13.3
+#!/env/Python3.10.4
 #/MobCat (2026)
 
-#Grab data from Assets.zip
 #install\release\package\game\latest\Assets.zip\Cosmetics\CharacterCreator\
 
 import glob
@@ -41,17 +40,21 @@ filterNames = {
 	'Underwear': 'underwear'
 }
 
-# Remember to edit this acording to the ver of the game you are extracting data for.
+# Set these configs FIRST befor running this script. otherwise you will overwrite older configs.
 entitlements = {
     'game.base': 0,
     'game.deluxe': 1,
     'game.founder': 2
 }
-gameVer = 'HytaleClient-2026.01.15-c04fdfe10'
+gameVer = 'HytaleClient-2026.01.24-6e2d4fc36'
 
 def getBaseEntitlements(editions, entitlements):
     return min(editions, key=lambda x: entitlements.get(x, len(entitlements)))
 
+if Path('CharacterCreator').is_dir() == False:
+	print("ERROR: Please extract the CharacterCreator folder from\ninstall/release/package/game/latest/Assets.zip/Cosmetics/CharacterCreator\nto the root of this folder.\nAlso rememeber you need to run the game first to get its gameVer to add to this scrupt aswell.")
+	exit()
+	
 # Do the things
 for file in glob.glob("CharacterCreator/*.json"):
 	with open(file) as f:
@@ -88,3 +91,6 @@ for i in entitlements:
 with open(f'data/{gameVer}-weights.json', "w") as f:
 	f.write(json.dumps(entitlements))
 print(f'saved data/{gameVer}-weights.json')
+
+shutil.rmtree('CharacterCreator')
+print("Cleaned up CharacterCreator folder")

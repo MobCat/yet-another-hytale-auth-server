@@ -33,17 +33,17 @@ If your server host chooses not to use telemetry, that data is chucked into the 
 Click on a service to open its technical details page.
 | Service | Support |
 | --- | --- |
-| sessions.hytale.com/game-session/child | Redirected |
-| sessions.hytale.com/server-join/auth-grant | Redirected |
-| sessions.hytale.com/server-join/auth-token | Redirected |
-| sessions.hytale.com/.well-known/jwks.json | Redirected |
-| sessions.hytale.com/session | Hyjacked for cracked launcher |
-| sentry.hytale.com/api/2/envelope | Yes even id loopbacked and other data chucked into the void |
-| telemetry.hytale.com/telemetry/client | Yes but spoofed your data into the void, I dont want your data |
-| account-data.hytale.com/my-account/game-profile | Yes |
-| account-data.hytale.com/my-account/cosmetics | Yes, but set server wide, not account based. |
-| account-data.hytale.com/my-account/skin | Yes |
-| account-data.hytale.com/my-account/get-launcher-data | Partial support. Sill WIP |
+| [sessions.hytale.com/game-session/child](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomgame-sessionchild) | Redirected |
+| [sessions.hytale.com/server-join/auth-grant](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomserver-joinauth-grant) | Redirected |
+| [sessions.hytale.com/server-join/auth-token](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomserver-joinauth-token) | Redirected |
+| [sessions.hytale.com/.well-known/jwks.json](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomwell-knownjwksjson) | Redirected |
+| [sessions.hytale.com/session](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomsession) | Hyjacked for cracked launcher |
+| [sentry.hytale.com/api/2/envelope](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sentryhytalecomapi2envelope) | Yes event id loopbacked, other data chucked into the void |
+| [telemetry.hytale.com/telemetry/client](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sentryhytalecomapi2envelope) | Yes but spoofed your data into the void, I dont want your data |
+| [account-data.hytale.com/my-account/game-profile](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountgame-profile) | Yes |
+| [account-data.hytale.com/my-account/cosmetics](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountcosmetics) | Yes, but set server wide, not account based. |
+| [account-data.hytale.com/my-account/skin](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountskin) | Yes |
+| [account-data.hytale.com/my-account/get-launcher-data](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountget-launcher-data) | Partial support. Sill WIP |
 
 # Setup: Client side (windows only right now sorry)
 1. Download the proxy launcher (this will setup python and mitm-proxy if you dont have them already)

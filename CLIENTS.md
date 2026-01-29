@@ -1,5 +1,6 @@
 # HyTale Clients
 This is a list of HyTale clietns tested with HighElf
+These build hash numbers may be OS specific (I used windows for testing) but the dates should be the same for all OS vers
 
 ## Release patch line
 | Build Number | Date Version | ShipOfYarn file |
@@ -16,11 +17,20 @@ Build number 2 does not boot for me. Needs more debugging. Could just be a bad p
 
 
 ## Pre-release patch line
-| Build Number | Date Version | ShipOfYarn file |
-| --- | --- | --- |
-| 1 |  | pre-release/windows/v1-windows-amd64.pwr |
-| 2 |  | pre-release/windows/v2-windows-amd64.pwr |
-| 3 |  | pre-release/windows/v3-windows-amd64.pwr |
+| Build Number | Date Version | ShipOfYarn file | Note |
+| --- | --- | --- | --- |
+| 1 | HytaleClient/2026.01.13-776e44148 | pre-release/windows/v1-windows-amd64.pwr |
+| 2 | HytaleClient/2026.01.13-50e69c385 | pre-release/windows/v2-windows-amd64.pwr |
+| 3 | HytaleClient/2026.01.14-3e7a0ba6c | pre-release/windows/v3-windows-amd64.pwr |
+| 4 | HytaleClient/2026.01.15-c04fdfe10 | pre-release/windows/v4-windows-amd64.pwr | Has the same build hash as release v3 |
+| 5 | HytaleClient/2026.01.16-c508b9acd | pre-release/windows/v5-windows-amd64.pwr |
+| 6 | HytaleClient/2026.01.16-5d02071f7 | pre-release/windows/v6-windows-amd64.pwr |
+| 7 | HytaleClient/2026.01.17-4b0f30090 | pre-release/windows/v7-windows-amd64.pwr | Has the same build hash as release v4, But you still get early accuess note |
+| 8 | HytaleClient/2026.01.17-a4cc0e7dd | pre-release/windows/v8-windows-amd64.pwr |
+| 9 | HytaleClient/2026.01.22-a60fdd027 | pre-release/windows/v9-windows-amd64.pwr |
+| 10 | HytaleClient/2026.01.22-6f8bdbdc4 | pre-release/windows/v10-windows-amd64.pwr |
 
 Please note: While HighElf does support both patch lines, I personally will not be testing all vers of the game
 My main focus will be getting the main release vers of the game working. Gives me more time to fix and edit things as needed on a stable build of the game.
+
+Note 2: For any pre-release patches that share the same build numbers as release, HighElf will default to using release data for this client. This may cause issues.

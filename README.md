@@ -15,6 +15,12 @@ This server aims to do more then just emulate the auth tokens though.<br>
 This project has full support for accounts with persistent data, moderator and admin tools, correct versioning and entitlements controls, almost perfect cosmetics support and so much more.<br>
 I didn't wanna just spoof some data back to the client to make it boot, I wanted that data to actually be real and useful.
 
+# Roadblock: 2026-01-30
+So at this point I can do *evreyhitng* other then start a server / actualy play the game...
+It seems that I need to either extract the JWT keys from the games server, or somehow get my own keys into there.
+I suck at java dev, and I feel like as soon as I work it out, they will change it / lock it down more.
+So for now Ill just stick to making other services and work on what I can
+
 # Whats the catch?
 Well for fun I wrote as much of this server in PHP as I can. IDK I just like PHP, deal with it.<br>
 This server does not support piracy, so how you obtain the game files is up to you, sorry.<br>

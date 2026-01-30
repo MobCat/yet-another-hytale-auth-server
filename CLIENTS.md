@@ -35,6 +35,7 @@ Build number 2 does not boot for me. Needs more debugging. Could just be a bad p
 | 14 | 2026.01.26-57a62ca8d | pre-release/windows/v14-windows-amd64.pwr |
 | 15 | 2026.01.27-734d39026 | pre-release/windows/v15-windows-amd64.pwr | Same build hash as release v6 |
 | 16 | 2026.01.28-87d03be09 | pre-release/windows/v16-windows-amd64.pwr | Same build hash as release v7 |
+| 17 | 2026.01.29-301e13929 | pre-release/windows/v17-windows-amd64.pwr |
 
 Please note: While HighElf does support both patch lines, I personally will not be testing all vers of the game
 My main focus will be getting the main release vers of the game working. Gives me more time to fix and edit things as needed on a stable build of the game.

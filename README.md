@@ -24,7 +24,7 @@ Everything client side at the moment is currently figured out and is being worke
 My redirect is either not working or not detailed enough to redirect the auth for this, so the game will just fail to start.
 I have built a spoof into the server configs called `spoofOffline`. when this is set to true, the server will send back an invalid JWT, forcing the game to start a server in offline mode.
 its not ideal and a bit jank, but it will at least get you into the game to play singleplayer, just cant play online yet. at least until I figure out how to redirect, crack or emulate correctly the auth for the game server components.<br>
-(I'm still not sure if I have to edit the servers jar to change its EdDSA keys, or if i'm just not redirecting the right traffic yet. <i>I think</i> it can be done with just a redirect, but idk.)
+(I'm still not sure if I have to edit the servers jar to change its EdDSA keys, or if i'm just not redirecting the right traffic yet. <i>I think</i> it can be done with just a redirect, but idk. But I am doing everything I can to not edit the game files. It feels like cheating..)
 
 # Whats the catch?
 Well for fun I wrote as much of this server in PHP as I can. IDK I just like PHP, deal with it.<br>

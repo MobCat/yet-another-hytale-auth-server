@@ -15,15 +15,22 @@ This server aims to do more then just emulate the auth tokens though.<br>
 This project has full support for accounts with persistent data, moderator and admin tools, correct versioning and entitlements controls, almost perfect cosmetics support and so much more.<br>
 I didn't wanna just spoof some data back to the client to make it boot, I wanted that data to actually be real and useful.
 
+This fork of sanasol's auth server is more or less in name only. I did use there auth server as a jumping off point, and I still use it for generating JWT tokens, but everything else I have redone with php.<br>
+So the fork is just to credit where I got a lot of the info for this server from. Anything I don't get from sanasol's project<br> (inside the [tokens.js](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/HighElf/tokens.js) script), I get my self with proxy tools and a real copy of the game.<br>
+Emulating a service that is still actively alive is so much nicer then say trying to revive a service inside a game that nobody has used for 10 years and has been dead for 8. If I need info, I can just ask the game for it lol.
+
 # Roadblock: 2026-01-30
-So at this point I can do *evreyhitng* other then start a server / actualy play the game...
-It seems that I need to either extract the JWT keys from the games server, or somehow get my own keys into there.
-I suck at java dev, and I feel like as soon as I work it out, they will change it / lock it down more.
-So for now Ill just stick to making other services and work on what I can
+Everything client side at the moment is currently figured out and is being worked on to emulate. However the game server, the auth for this is not done yet.
+My redirect is either not working or not detailed enough to redirect the auth for this, so the game will just fail to start.
+I have built a spoof into the server configs called `spoofOffline`. when this is set to true, the server will send back an invalid JWT, forcing the game to start a server in offline mode.
+its not ideal and a bit jank, but it will at least get you into the game to play singleplayer, just cant play online yet. at least until I figure out how to redirect, crack or emulate correctly the auth for the game server components.<br>
+(I'm still not sure if I have to edit the servers jar to change its EdDSA keys, or if i'm just not redirecting the right traffic yet. <i>I think</i> it can be done with just a redirect, but idk.)
 
 # Whats the catch?
 Well for fun I wrote as much of this server in PHP as I can. IDK I just like PHP, deal with it.<br>
+(If you have ever managed or setup a WoW private server, you will be right at home here with this project)<br>
 This server does not support piracy, so how you obtain the game files is up to you, sorry.<br>
+However, the game files you do obtain need to be clean, they can't already be patched for another auth server as my redirects wont work for this.<br>
 Also right now all the user data is sent into an SQLite database. it just makes the dev process easier, it can be sent to a real database in the future once all the data paths have been locked down and are fully known about.
 
 # Why another auth project? whats wrong with the other one/s?

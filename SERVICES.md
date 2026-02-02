@@ -101,3 +101,15 @@ Supported os args are.
 all mac flavors have been spoofed to just return darwin for ease of use. So you can use any of them to get "mac" data.
 The hijack for this service is a special url arg `os=all` this will give you all supported os, but also all supported builds. See the cosmetics api for more details on build vers.
 If no url arg is passed, then this api will default to showing windows build data with a generated fake account.
+
+# sessions.hytale.com/game-session
+### Status: Complete but guessed at it's functionality.
+### Info:
+As the game just sends a DELETE request to this api, and the api doesn't even respond I'm more or less guessing at what this does.
+My ver of this api endpoint does respond for debug reasons, which I think is fine as the game would never receive the response if one was sent from the real server.
+This api seems to be mostly called on game quit and exit to desktop. So if the server did respond, the game is no longer running to get that response.
+My ver of this api does respond with a success bool and the string of the session id you just deleted. If you can't find this string in the db, then the session was deleted correctly.
+So all my api does is look up your session id and user info to make sure they are valid, and if so we just null the session id token in the accounts database.
+A reminder this session id token is also the jti token inside the JWT and is used for both accounts and servers. as we are not emulating the game server auth correctly yet, just client, we don't have to do anything like make sure the game server has stopped and closed if nobody is using it anymore.
+Nulling the token out of the database like this may cause issues, mostly with game servers, but i'll figure that out when I get there.
+Ideally we would use this DELETE request to go and cleanup any cache, cookies or other active connections for the client that just logged out, but my php ver of this service currently doesn't use or need any of that stuff, we don't really have anything to clean up if the user is no longer logged in. 

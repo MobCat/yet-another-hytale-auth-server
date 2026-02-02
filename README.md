@@ -50,6 +50,7 @@ Click on a service to open its technical details page.
 | [account-data.hytale.com/my-account/cosmetics](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountcosmetics) | Yes, but set server wide, not account based. |
 | [account-data.hytale.com/my-account/skin](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountskin) | Yes |
 | [account-data.hytale.com/my-account/get-launcher-data](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountget-launcher-data) | Partial support. Sill WIP |
+| [sessions.hytale.com/game-session](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomgame-session) | Yes, but more or less guessed at it's functionality |
 
 # Setup: Client side (windows only right now sorry)
 1. Download the proxy launcher (this will setup python and mitm-proxy if you dont have them already)

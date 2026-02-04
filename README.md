@@ -15,16 +15,19 @@ This server aims to do more then just emulate the auth tokens though.<br>
 This project has full support for accounts with persistent data, moderator and admin tools, correct versioning and entitlements controls, almost perfect cosmetics support and so much more.<br>
 I didn't wanna just spoof some data back to the client to make it boot, I wanted that data to actually be real and useful.
 
-This fork of sanasol's auth server is more or less in name only. I did use there auth server as a jumping off point, and I still use it for generating JWT tokens, but everything else I have redone with php.<br>
-So the fork is just to credit where I got a lot of the info for this server from. Anything I don't get from sanasol's project<br> (inside the [tokens.js](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/HighElf/tokens.js) script), I get my self with proxy tools and a real copy of the game.<br>
+This fork of sanasol's auth server is more or less in name only. I did use there auth server as a jumping off point, and I still use it for generating JWT tokens, but everything else I have redone with php and python.<br>
+So the fork is just to credit where I got a lot of the info for this server from. Anything I don't get from sanasol's project<br> (inside the [tokens server.js](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/src/app.js) script), I get my self with proxy tools and a real copy of the game.<br>
 Emulating a service that is still actively alive is so much nicer then say trying to revive a service inside a game that nobody has used for 10 years and has been dead for 8. If I need info, I can just ask the game for it lol.
 
-# Roadblock: 2026-01-30
-Everything client side at the moment is currently figured out and is being worked on to emulate. However the game server, the auth for this is not done yet.
+# Roadblock: 2026-02-04
+Everything game client side at the moment is currently figured out and is being worked on to emulate. However the game server, the auth for this is not done yet.
 My redirect is either not working or not detailed enough to redirect the auth for this, so the game will just fail to start.
 I have built a spoof into the server configs called `spoofOffline`. when this is set to true, the server will send back an invalid JWT, forcing the game to start a server in offline mode.
-its not ideal and a bit jank, but it will at least get you into the game to play singleplayer, just cant play online yet. at least until I figure out how to redirect, crack or emulate correctly the auth for the game server components.<br>
-(I'm still not sure if I have to edit the servers jar to change its EdDSA keys, or if i'm just not redirecting the right traffic yet. <i>I think</i> it can be done with just a redirect, but idk. But I am doing everything I can to not edit the game files. It feels like cheating..)
+However please note, that if you do use `spoofOffline` it will force the game into `--auth-mode Offline` so you have to reboot the game if you wan to edit cosmetics again. But your custom cosmetics and set username will work ingame.<br>
+its not ideal and a bit jank, but it will at least get you into the game to play singleplayer, just can't play online yet. at least until I figure out how to redirect, crack or emulate correctly the auth for the game server components.<br>
+
+It feels like cheating but it does indeed look like we have to edit `HytaleServer.jar` to allow it to use our own custom EdDSA keys, both public and private keys. So the server can sign JWT tokens to send back to the auth server.<br>
+I'm probs just gonna have to use sanasol's omni patcher, but I'll see if I can edit it to make it a bit more user friendly.
 
 # Whats the catch?
 Well for fun I wrote as much of this server in PHP as I can. IDK I just like PHP, deal with it.<br>

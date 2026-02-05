@@ -13,7 +13,8 @@ These build hash numbers may be OS specific (I used windows for testing) but the
 | 6 | 2026.01.27-734d39026 | release/windows/v6-windows-amd64.pwr | Hotfixes: 28 January 2026 |
 | 7 | 2026.01.28-87d03be09 | release/windows/v7-windows-amd64.pwr |
 
-Build number 2 does not boot for me. Needs more debugging. Could just be a bad patch idk.
+Build 2 only boots if you patch build 1 with build 2's patch file correctly.
+All other builds seem to work fine clean unpacked to a new folder.
 
 
 ## Pre-release patch line

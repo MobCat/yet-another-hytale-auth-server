@@ -5,6 +5,7 @@
 
 import glob
 import json
+import shutil
 from pathlib import Path
 
 sets = {};
@@ -46,7 +47,7 @@ entitlements = {
     'game.deluxe': 1,
     'game.founder': 2
 }
-gameVer = 'HytaleClient-2026.01.24-6e2d4fc36'
+gameVer = 'HytaleClient-2026.02.06-aa1b071c2'
 
 def getBaseEntitlements(editions, entitlements):
     return min(editions, key=lambda x: entitlements.get(x, len(entitlements)))
@@ -54,9 +55,10 @@ def getBaseEntitlements(editions, entitlements):
 if Path('CharacterCreator').is_dir() == False:
 	print("ERROR: Please extract the CharacterCreator folder from\ninstall/release/package/game/latest/Assets.zip/Cosmetics/CharacterCreator\nto the root of this folder.\nAlso rememeber you need to run the game first to get its gameVer to add to this scrupt aswell.")
 	exit()
-	
+
 # Do the things
 for file in glob.glob("CharacterCreator/*.json"):
+	print(file)
 	with open(file) as f:
 		d = json.load(f)
 		for i in d:
@@ -65,7 +67,7 @@ for file in glob.glob("CharacterCreator/*.json"):
 				#print(elementID)
 				if 'Entitlements' in i:
 					#sets[elementID].append(i['Id'])
-					#print(i['Entitlements'])
+					#print(f"{i['Id']} == {i['Entitlements']}")
 					entitlement = getBaseEntitlements(i['Entitlements'], entitlements)
 					#print("\n")
 					if entitlement not in sets:
@@ -81,6 +83,7 @@ for file in glob.glob("CharacterCreator/*.json"):
 			except KeyError:
 				#print(f"WARNING: {Path(file).stem} is not requested by client yet. Skipped.")
 				continue # skipped error
+	#input("pause")
 
 for i in entitlements:
 	name = f"data/{gameVer}-{i}.json"
@@ -92,5 +95,5 @@ with open(f'data/{gameVer}-weights.json', "w") as f:
 	f.write(json.dumps(entitlements))
 print(f'saved data/{gameVer}-weights.json')
 
-shutil.rmtree('CharacterCreator')
-print("Cleaned up CharacterCreator folder")
+#shutil.rmtree('CharacterCreator')
+#print("Cleaned up CharacterCreator folder")

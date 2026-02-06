@@ -16,6 +16,11 @@ $clientVer = valadateClient($pdo);
 
 //Load waights for this game clinet
 //WARNING: we are expecting valadateClient to do corect string excapes for this
+if (!file_exists("data/".$clientVer."-weights.json")) {
+    header('Content-type: application/json');
+    echo '{"ERROR": "This client '.$clientVer.' is supported by the server, however you have not extracted the cosmetics data jsons. Please do that."}';
+    die();
+}
 $rawdata = file_get_contents("data/".$clientVer."-weights.json");
 $weights = json_decode($rawdata, true);
 $entitlements = json_decode($UserInfo['entitlements'], true);

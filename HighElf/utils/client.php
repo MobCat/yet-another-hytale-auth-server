@@ -1,11 +1,12 @@
 <?php
+//Utilities for encoing and decoing client info that is not provided by the game.
 
 function IPChunk() {
     $clientRequiredKeys = [
         'HTTP_USER_AGENT',
         'HTTP_ACCEPT',
         'REMOTE_ADDR',
-        //'GEOIP_COUNTRY_CODE',
+        //'GEOIP_COUNTRY_CODE', // Needs SSL or something else idk only shows on some servers.
     ];
     $serverRequiredKeys = ['SERVER_ADDR'];
     $success = true; // ASSume success initially

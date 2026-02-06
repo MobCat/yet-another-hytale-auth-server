@@ -78,7 +78,11 @@ function valadateAuthorization($pdo){
 
 			//TODO: valadate entitlements?
 
-			return [$result['uuid'], $result['username'], $result['entitlements'], $sessionStart, $sessionEnd];
+			//Return scope so servers can't poke things that are meant for the client and visa versa
+			//$scope = mysql_real_escape_string($TokenData['scope']);
+			$scope = preg_replace('/[^a-z0-9]/', '', $TokenData['scope']);;
+
+			return [$result['uuid'], $result['username'], $result['entitlements'], $sessionStart, $sessionEnd, $scope];
 		}
 	} else {
 		//TODO: a better error handler

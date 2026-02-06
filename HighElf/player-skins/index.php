@@ -46,51 +46,60 @@ if ($method === 'GET') {
 	$stmt = $pdo->prepare("SELECT * FROM avatars WHERE ownerId = ? AND skinId NOT LIKE 'OLD%'");
 	$stmt->execute([$clientUUID]);
 	$dbresult = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	foreach ($dbresult as $skin) {
+	if ($dbresult) {
+		foreach ($dbresult as $skin) {
+			$temp = [];
+			$temp['id'] = $skin['skinId'];
+			$temp['name'] = $skin['name'];
+			//Remove them as we dont need them anymore.
+			unset($skin['ownerId']);
+			unset($skin['skinId']);
+    		unset($skin['lastActive']);
+    		//Fun pirate hat override because this is a cracked server
+    		//This overide only works for loading, when saving the real hat will be saved
+    		//And saveing / loading / isActive a a new avatar will not get forceHat.
+    		//forceHat is only applyed on game load.
+    		//However, only if you select a new hat, otherwise the pirate hat will be saved as your new hat.
+    		if ($serverConfig['forceHat'] == 1){
+    			$skin['headAccessory'] = 'Pirate_Captain_Hat.BrownDark';
+    		}
+    		//append the rest of the data
+    		$temp['skinData'] = json_encode($skin);
+			$result['skins'][] = $temp;
+		}
+	} else {
+		// if no skins at all found. coopt getActiveSkin to give use a new default skin.
 		$temp = [];
-		$temp['id'] = $skin['skinId'];
-		$temp['name'] = $skin['name'];
-		//Remove them as we dont need them anymore.
+		$temp['id'] = $clientUUID;
+		$temp['name'] = 'Default';
+
+		$skin = getActiveSkin($pdo, $clientUUID, $serverConfig);
 		unset($skin['ownerId']);
 		unset($skin['skinId']);
-    	unset($skin['isActive']);
-    	//Fun pirate hat override because this is a cracked server
-    	//This overide only works for loading, when saving the real hat will be saved
-    	//And saveing / loading / isActive a a new avatar will not get forceHat.
-    	//forceHat is only applyed on game load.
-    	//However, only if you select a new hat, otherwise the pirate hat will be saved as your new hat.
-    	if ($serverConfig['forceHat'] == 1){
-    		$skin['headAccessory'] = 'Pirate_Captain_Hat.BrownDark';
-    	}
-    	//append the rest of the data
+    	unset($skin['lastActive']);
     	$temp['skinData'] = json_encode($skin);
-		$result['skins'][] = $temp;
+    	$result['skins'][] = $temp;
 	}
 } elseif ($method === 'PUT') {
 	//TODO: Handle error if PUT is not json.
 	$postData = json_decode(file_get_contents('php://input'), true);
     if (isset($_GET['action']) && $_GET['action'] === 'active') {
         // Handle player-skins/active
-		$stmt = $pdo->prepare("
-		    UPDATE avatars 
-		    SET isActive = CASE 
-		        WHEN skinId = ? THEN 'true' 
-		        ELSE NULL 
-		    END 
-		    WHERE ownerId = ?
-		");
-		$stmt->execute([$postData['skinId'], $clientUUID]);
-		$result = ["success" => true, "action" => "isActive", "skinId" => $postData['skinId']];
+        $time = time();
+		$stmt = $pdo->prepare("UPDATE avatars SET lastActive = ? WHERE skinId = ? AND ownerId = ?");
+		$stmt->execute([$time, $postData['skinId'], $clientUUID]);
+		$result = ["success" => true, "action" => "lastActive", "time" => $time, "skinId" => $postData['skinId']];
         
     } elseif (isset($_GET['skinId'])) {
         // Handle player-skins/{uuid} to update or rename skin
         $skinId = $_GET['skinId'];
         $skinName = $postData['name'];
         $skinData = json_decode($postData['skinData'], true);
+        $time = time();
         if($skinData) {
         	$skinData['ownerId'] = $clientUUID;
         	$skinData['skinId'] = $skinId;
-        	//$skinData['isActive'] = null; //null by default.
+        	$skinData['lastActive'] = time();
         	$skinData['name'] = $skinName;
 
         	// Build data query
@@ -109,22 +118,10 @@ if ($method === 'GET') {
 			$stmt = $pdo->prepare($sql);
 			$stmt->execute($skinData);
 
-			// Now we need to reset the isActive flag.
-			// This is a BUGFIX for making a new avatar, not editing it and just clicking save to exit.
-			$stmt = $pdo->prepare("
-		    	UPDATE avatars 
-		    	SET isActive = CASE 
-		        	WHEN skinId = ? THEN 'true' 
-		        	ELSE NULL 
-		    	END 
-		    	WHERE ownerId = ?
-			");
-			$stmt->execute([$skinId, $clientUUID]);
-
-			$result = ["success" => true, "action" => "uuid", "skinId" => $skinId, "name" => $skinName];
+			$result = ["success" => true, "action" => "uuid", "time" => $time, "skinId" => $skinId, "name" => $skinName];
 
         } else {
-        	$result = ["success" => false, "action" => "uuid", "skinId" => $skinId, "name" => $skinName];
+        	$result = ["success" => false, "action" => "uuid", "time" => $time, "skinId" => $skinId, "name" => $skinName];
         }
 
         
@@ -138,7 +135,7 @@ if ($method === 'GET') {
     if($skinData) {
 		$skinData['ownerId'] = $clientUUID;
 		$skinData['skinId'] = guidv4(); //TODO: we are not checking if uuid already in db. should be fine...
-		//$skinData['isActive'] = ?;
+		$skinData['lastActive'] = time();
 		$skinData['name'] = $postData['name'];
 
     	// Build data query

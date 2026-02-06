@@ -1,6 +1,6 @@
 # HyTale Clients
-This is a list of HyTale clietns tested with HighElf
-These build hash numbers may be OS specific (I used windows for testing) but the dates should be the same for all OS vers
+This is a list of all HyTale clients.
+This will give you a list of client build numbers to buildDate-buildHash
 
 ## Release patch line
 | Build Number | Date Version | ShipOfYarn file | Official Name
@@ -37,6 +37,9 @@ All other builds seem to work fine clean unpacked to a new folder.
 | 15 | 2026.01.27-734d39026 | pre-release/windows/v15-windows-amd64.pwr | Same build hash as release v6 |
 | 16 | 2026.01.28-87d03be09 | pre-release/windows/v16-windows-amd64.pwr | Same build hash as release v7 |
 | 17 | 2026.01.29-301e13929 | pre-release/windows/v17-windows-amd64.pwr |
+| 18 | 2026.02.05-bd949ff90 | pre-release/windows/v17~18-windows-amd64.pwr |
+| 19 | 2026.02.05-9ce2783f7 | pre-release/windows/v18~19-windows-amd64.pwr |
+| 20 | 2026.02.06-0baf7c5aa | pre-release/windows/v19~20-windows-amd64.pwr |
 
 Please note: While HighElf does support both patch lines, I personally will not be testing all vers of the game
 My main focus will be getting the main release vers of the game working. Gives me more time to fix and edit things as needed on a stable build of the game.

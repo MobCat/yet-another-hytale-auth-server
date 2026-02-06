@@ -1,0 +1,11 @@
+#Redirect all skins api paths to player-skins/index.php
+RewriteEngine On
+RewriteBase /HighElf/player-skins/
+
+# Redirect regex
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-f0-9\-]+)/?$ index.php?skinId=$1 [L,QSA]
+
+# Handle /active route to send back to index.php as a $_GET['action']
+RewriteRule ^active/?$ index.php?action=active [L,QSA]

@@ -12,10 +12,12 @@ This will give you a list of client build numbers to buildDate-buildHash
 | 5 | 2026.01.24-6e2d4fc36 | release/windows/v5-windows-amd64.pwr | Update 2 |
 | 6 | 2026.01.27-734d39026 | release/windows/v6-windows-amd64.pwr | Hotfixes: 28 January 2026 |
 | 7 | 2026.01.28-87d03be09 | release/windows/v7-windows-amd64.pwr |
+| 8 | 2026.02.06-aa1b071c2 | release/windows/v8-windows-amd64.pwr |
 
 Build 2 only boots if you patch build 1 with build 2's patch file correctly.
 All other builds seem to work fine clean unpacked to a new folder.
 
+Build 8 does not contain the saving and loading of multiple avatar / skins that are in the pre-release build 18, 19 and 20. Which where all released on the same day.
 
 ## Pre-release patch line
 | Build Number | Date Version | ShipOfYarn file | Note |

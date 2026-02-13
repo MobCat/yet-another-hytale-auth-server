@@ -42,6 +42,8 @@ Build 8 does not contain the saving and loading of multiple avatar / skins that 
 | 18 | 2026.02.05-bd949ff90 | pre-release/windows/v17~18-windows-amd64.pwr |
 | 19 | 2026.02.05-9ce2783f7 | pre-release/windows/v18~19-windows-amd64.pwr |
 | 20 | 2026.02.06-0baf7c5aa | pre-release/windows/v19~20-windows-amd64.pwr |
+| 21 | 2026.02.11-0235495ee | pre-release/windows/v20~21-windows-amd64.pwr |
+| 22 | 2026.02.11-255364b8e | pre-release/windows/v21~22-windows-amd64.pwr |
 
 Please note: While HighElf does support both patch lines, I personally will not be testing all vers of the game
 My main focus will be getting the main release vers of the game working. Gives me more time to fix and edit things as needed on a stable build of the game.

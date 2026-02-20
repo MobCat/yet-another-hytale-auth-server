@@ -19,15 +19,13 @@ This fork of sanasol's auth server is more or less in name only. I did use there
 So the fork is just to credit where I got a lot of the info for this server from. Anything I don't get from sanasol's project<br> (inside the [tokens server.js](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/src/app.js) script), I get my self with proxy tools and a real copy of the game.<br>
 Emulating a service that is still actively alive is so much nicer then say trying to revive a service inside a game that nobody has used for 10 years and has been dead for 8. If I need info, I can just ask the game for it lol.
 
-# Roadblock: 2026-02-04
-Everything game client side at the moment is currently figured out and is being worked on to emulate. However the game server, the auth for this is not done yet.
-My redirect is either not working or not detailed enough to redirect the auth for this, so the game will just fail to start.
-I have built a spoof into the server configs called `spoofOffline`. when this is set to true, the server will send back an invalid JWT, forcing the game to start a server in offline mode.
-However please note, that if you do use `spoofOffline` it will force the game into `--auth-mode Offline` so you have to reboot the game if you wan to edit cosmetics again. But your custom cosmetics and set username will work ingame.<br>
-its not ideal and a bit jank, but it will at least get you into the game to play singleplayer, just can't play online yet. at least until I figure out how to redirect, crack or emulate correctly the auth for the game server components.<br>
-
-It feels like cheating but it does indeed look like we have to edit `HytaleServer.jar` to allow it to use our own custom EdDSA keys, both public and private keys. So the server can sign JWT tokens to send back to the auth server.<br>
-I'm probs just gonna have to use sanasol's omni patcher, but I'll see if I can edit it to make it a bit more user friendly.
+# 20260220
+So I was finally going to split this project off into its own thing as I am no longer using any of sanasol's node js code for this project.<br>
+However like all communities that get to big, the company has lashed out and has tried to shut us down. not HighElf directly, but a lot of other systems around us that make this project hard to exist on its own.<br>
+So I'm not quitting or letting them win, but ill have to take this github down soon and make it private. I'll host HighElf somewhere and make that public at some point, but for now. we have to all chill out.<br>
+Companies just don't understand the community the have made a lot of the time... but also if this thing was locked down correctly from the start then none of us would of been here...<br>
+just rambling at this point, kinda feels weird you didn't check auth correctly at launch, then got mad when people started to take advantage of that.<br>
+So yeah will have to take this project private for now until all of this blows over, we are both acting stupid here and we all need to chill out and think for a bit.. at least pretend to be adults here.<br>
 
 # Whats the catch?
 Well for fun I wrote as much of this server in PHP as I can. IDK I just like PHP, deal with it.<br>
@@ -62,11 +60,15 @@ Click on a service to open its technical details page.
 | [account-data.hytale.com/my-account/get-launcher-data](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#account-datahytalecommy-accountget-launcher-data) | Partial support. Sill WIP |
 | [sessions.hytale.com/game-session](https://github.com/MobCat/yet-another-hytale-auth-server/blob/master/SERVICES.md#sessionshytalecomgame-session) | Yes, almost, but more or less guessed at it's functionality |
 
-# Setup: Client side (windows only right now sorry)
+# Setup: Dev setup client side (windows only right now sorry)
 1. Download the proxy launcher (this will setup python and mitm-proxy if you dont have them already)
 2. Place the launcher at the root of your game files.
 3. Edit the proxy config to point to your or someone elses server.
 4. Run the proxy launcher, make an account and run the game. thats it.
+
+# Setup: Normal user
+1. Download the redirect dll from Li.
+2. set env vars in your launcher.
 
 # Setup: Server side
 1. Setup a php server with SQLite and OpenSSL support (I'm just using XAMP for dev)

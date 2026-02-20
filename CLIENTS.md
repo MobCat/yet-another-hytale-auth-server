@@ -15,6 +15,7 @@ This will give you a list of client build numbers to buildDate-buildHash
 | 8 | 2026.02.06-aa1b071c2 | release/windows/v8-windows-amd64.pwr | |
 | 9 | 2026.02.17-255364b8e | release/windows/v9-windows-amd64.pwr | Update 3 |
 | 10 | 2026.02.18-f3b8fff95 | release/windows/v10-windows-amd64.pwr | |
+| 11 | 2026.02.19-1a311a592 | release/windows/v11-windows-amd64.pwr | |
 
 Build 2 only boots if you patch build 1 with build 2's patch file correctly.
 All other builds seem to work fine clean unpacked to a new folder.
@@ -47,6 +48,7 @@ This was not added untill build 9.
 | 20 | 2026.02.06-0baf7c5aa | pre-release/windows/v19~20-windows-amd64.pwr |
 | 21 | 2026.02.11-0235495ee | pre-release/windows/v20~21-windows-amd64.pwr |
 | 22 | 2026.02.11-255364b8e | pre-release/windows/v21~22-windows-amd64.pwr |
+| 23 | 2026.02.19-ad6f58ec8 | pre-release/windows/v22~23-windows-amd64.pwr | Update 4 (Part 1) |
 
 Please note: While HighElf does support both patch lines, I personally will not be testing all vers of the game
 My main focus will be getting the main release vers of the game working. Gives me more time to fix and edit things as needed on a stable build of the game.
